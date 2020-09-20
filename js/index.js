@@ -1,4 +1,5 @@
 /*coisas pra fazer: 
+reduzir o número de casas decimais
 desfazer comportamento de apagar resultado depois de apertar igual
 corrigir bug ainda {3 = 6 +}
 */
