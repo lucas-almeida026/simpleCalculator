@@ -73,3 +73,9 @@ body{
 .spotlight:hover{
   background: rgba(222, 130, 18, 1)
 }
+
+@media screen and (max-width: 480px){
+  .container{
+    height: 420px;
+  }
+}
