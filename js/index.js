@@ -1,4 +1,4 @@
-/*coisas pra fazer: tirar sinal de mais, qnd deletar número
+/*coisas pra fazer: 
 desfazer comportamento de apagar resultado depois de apertar igual
 corrigir bug ainda {3 = 6 +}
 */
@@ -91,11 +91,13 @@ function clearAll(){
 }
 
 function deleteEndingComma(){num1.substring(num1.length - 1, num1.length) == ',' ? deleteDigit() : false}
+function deleteMinesSignal(){num1.length === 1 && num1 == '-' ? deleteDigit() : false}
 
 function deleteDigit(){
   num1 = num1.substring(0, num1.length - 1)
   reloadVisor()
   deleteEndingComma()
+  deleteMinesSignal()
 }
 
 function insertComma(){
