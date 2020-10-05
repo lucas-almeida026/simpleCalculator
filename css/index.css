@@ -26,18 +26,20 @@ body{
 }
 
 .visor{
-  flex-grow: 3;
+  height: 170px;
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding-right: 30px;
 }
 
 #number{
-  margin-right: 30px;
+  font-size: 2.2rem;
 }
 
 .buttons{
-  flex-grow: 5;
+  flex-grow: 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr);
@@ -77,5 +79,9 @@ body{
 @media screen and (max-width: 480px){
   .container{
     height: 420px;
+  }
+
+  .visor{
+    padding-right: 10px;
   }
 }

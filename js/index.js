@@ -1,10 +1,5 @@
-/*coisas pra fazer: 
-reduzir o número de casas decimais
-desfazer comportamento de apagar resultado depois de apertar igual
-corrigir bug ainda {3 = 6 +}
-*/
-
 let numberVisor = document.getElementById('number')
+let historyVisor = document.getElementById('history')
 let btnNumbers = document.getElementsByClassName('number')
 let btnOperations = document.getElementsByClassName('operation')
 let btnOperationsF = document.getElementsByClassName('operationF')
@@ -40,17 +35,24 @@ btnDot.addEventListener('click', () => {
   insertComma()
 })
 
+const reloadVisor = () => {
+  console.log('num1:', num1)
+  console.log('num2:', num2)
+  console.log('operation:', operation)
+  num1.length >= 10 && num1.includes(',') ? num1 = num1.substring(0, 11 + num1.indexOf(','))  : false
+  numberVisor.innerText = num1.toString()
+  numberVisor.innerText.length == 0 ? numberVisor.innerText = '0' : false
+}
 
-// function setNumber(num){
-//   num1 += num
-//   reloadVisor()
-// }
-const setNumber = (num) => {  
+const deleteEndingComma = () => num1.substring(num1.length - 1, num1.length) == ',' ? deleteDigit() : false
+const deleteMinesSignal = () => num1.length === 1 && num1 == '-' ? deleteDigit() : false
+
+const setNumber = (num) => {
   if(operation == '='){
     operation = ''
     num1 = ''
   }
-  if(operation != '' && num2 == ''){
+  if(!!num1 && !num2 && !!operation){
     num2 = num1
     num1 = ''
   }
@@ -58,58 +60,55 @@ const setNumber = (num) => {
   reloadVisor()
 }
 
-// function setOperation(op){
-//   deleteEndingComma()
-//   console.log(op)
-// }
-
 let operations = [
   ['+', (a, b) => a + b],
   ['-', (a, b) => a - b],
   ['*', (a, b) => a * b],
-  ['/', (a, b) => a / b]
+  ['/', (a, b) => a / b],
+  ['=', () => num1]
 ]
 
 const setOperation = (op) => {
   deleteEndingComma()
-  if(num1 == '' || num2 == ''){
-    operation = op
-    num2 = num1
-    num1 = ''
+  if(op != '='){    
+    if(num1 && num2 && operation){
+      calcResult()
+    }else{
+      num2 = num1
+      num1 = ''      
+    }    
   }else{
-    num1 = Object.fromEntries(operations)[operation](parseFloat(num2.replace(',', '.')), parseFloat(num1.replace(',', '.'))).toString().replace('.', ',')
-    num2 = ''
-    operation = op
+    if(!!num2 && operation == '')
+      num2 = ''
+    
+    if(!!num1 && !!num2)
+      calcResult()
   }
+  operation = op
   reloadVisor()
 }
 
-function clearAll(){
+const calcResult = () => {
+  num1 = Object.fromEntries(operations)[operation](parseFloat(num2.replace(',', '.')), parseFloat(num1.replace(',', '.'))).toString().replace('.', ',')
+  num2 = ''
+}
+
+const clearAll = () => {
   num1 = ''
   num2 = ''
   operation = ''
+  history = ''
   reloadVisor()
 }
 
-function deleteEndingComma(){num1.substring(num1.length - 1, num1.length) == ',' ? deleteDigit() : false}
-function deleteMinesSignal(){num1.length === 1 && num1 == '-' ? deleteDigit() : false}
-
-function deleteDigit(){
+const deleteDigit = () => {
   num1 = num1.substring(0, num1.length - 1)
   reloadVisor()
   deleteEndingComma()
   deleteMinesSignal()
 }
 
-function insertComma(){
+const insertComma = () => {
   num1.includes(',') ? false : num1 += ','
   reloadVisor()
-}
-
-function reloadVisor(){
-  console.log('num1:', num1)
-  console.log('num2:', num2)
-  console.log('operation:', operation)
-  numberVisor.innerText = num1.toString()
-  numberVisor.innerText.length == 0 ? numberVisor.innerText = '0' : false
 }
