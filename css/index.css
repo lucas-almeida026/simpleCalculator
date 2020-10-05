@@ -7,14 +7,17 @@
 
 body{
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background: #3460a8;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-x: hidden;
 }
 
 .container{
+  margin-top: 120px;
   width: 80%;
   max-width: 420px;
   height: 560px;
@@ -74,6 +77,29 @@ body{
 
 .spotlight:hover{
   background: rgba(222, 130, 18, 1)
+}
+
+footer{
+  margin-top: 120px;
+  width: 100%;
+  height: 200px;
+  background-color: rgba(0, 0, 0, .4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  text-align: center;
+}
+
+footer p{
+  font-size: 14pt;
+  margin: 6px;
+  color: white;
+}
+
+footer p a{
+  color: currentColor;
+  text-decoration: underline;
 }
 
 @media screen and (max-width: 480px){
