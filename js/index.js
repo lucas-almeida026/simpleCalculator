@@ -36,10 +36,8 @@ btnDot.addEventListener('click', () => {
 })
 
 const reloadVisor = () => {
-  console.log('num1:', num1)
-  console.log('num2:', num2)
-  console.log('operation:', operation)
   num1.length >= 10 && num1.includes(',') ? num1 = num1.substring(0, 11 + num1.indexOf(','))  : false
+  num1.length >= 10 ? num1 = num1.substring(0, 11)  : false
   numberVisor.innerText = num1.toString()
   numberVisor.innerText.length == 0 ? numberVisor.innerText = '0' : false
 }
